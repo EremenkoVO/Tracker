@@ -45,7 +45,7 @@ const Home = ({navigation}) => {
     const currentDate = new Date();
 
     const timeDiff = Math.abs(currentDate.getTime() - inputDate.getTime());
-    const daysPassed = Math.ceil(timeDiff / (1000 * 3600 * 24));
+    const daysPassed = Math.ceil(timeDiff / (1000 * 3600 * 24) - 1);
 
     return daysPassed;
   };
