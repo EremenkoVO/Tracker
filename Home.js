@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 import {useEffect, useState} from 'react';
 import {StyleSheet, ToastAndroid, View} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
@@ -35,6 +36,21 @@ const Home = ({navigation}) => {
     await getTrackers(setTrackers);
   };
 
+  function declOfNum(n, text_forms) {
+    n = Math.abs(n) % 100;
+    var n1 = n % 10;
+    if (n > 10 && n < 20) {
+      return text_forms[2];
+    }
+    if (n1 > 1 && n1 < 5) {
+      return text_forms[1];
+    }
+    if (n1 == 1) {
+      return text_forms[0];
+    }
+    return text_forms[2];
+  }
+
   const calculateDaysPassed = dateString => {
     const parts = dateString.split('/');
     const day = parseInt(parts[0], 10);
@@ -44,10 +60,17 @@ const Home = ({navigation}) => {
     const inputDate = new Date(year, month, day);
     const currentDate = new Date();
 
+    if (inputDate > currentDate)
+      return `Трекер начнется ${dayjs(inputDate).format('DD.MM.YYYY')}`;
+
     const timeDiff = Math.abs(currentDate.getTime() - inputDate.getTime());
     const daysPassed = Math.ceil(timeDiff / (1000 * 3600 * 24) - 1);
 
-    return daysPassed;
+    return `${declOfNum(daysPassed, [
+      'Прошел',
+      'Прошли',
+      'Прошло',
+    ])} ${daysPassed} ${declOfNum(daysPassed, ['день', 'дни', 'дней'])}`;
   };
 
   return (
@@ -79,7 +102,7 @@ const Home = ({navigation}) => {
                 <List.Item
                   key={id}
                   title={name}
-                  description={`Прошло ${calculateDaysPassed(date)} дней`}
+                  description={calculateDaysPassed(date)}
                   left={props => (
                     <List.Icon
                       {...props}
