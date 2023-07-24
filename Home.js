@@ -70,7 +70,7 @@ const Home = ({navigation}) => {
       'Прошел',
       'Прошли',
       'Прошло',
-    ])} ${daysPassed} ${declOfNum(daysPassed, ['день', 'дни', 'дней'])}`;
+    ])} ${daysPassed} ${declOfNum(daysPassed, ['день', 'дня', 'дней'])}`;
   };
 
   return (
