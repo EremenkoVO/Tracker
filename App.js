@@ -1,41 +1,19 @@
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import {useEffect} from 'react';
 import {registerTranslation} from 'react-native-paper-dates';
-import {createTable} from './storage';
 
 import 'react-native-gesture-handler';
 
-import AddTracker from './AddTracker';
+import AddTracker from './Screens/AddTracker';
+import Home from './Screens/Home';
+import ru from './common/calendar/ru';
 import CustomNavigationBar from './components/Appbar';
-import Home from './Home';
 
-registerTranslation('ru', {
-  save: 'Сохранить',
-  selectSingle: 'Выбрать дату',
-  selectMultiple: 'Выбрать даты',
-  selectRange: 'Выбрать период',
-  notAccordingToDateFormat: inputFormat =>
-    `Формат даты должен быть ${inputFormat}`,
-  mustBeHigherThan: date => `Должно быть позже ${date}`,
-  mustBeLowerThan: date => `Должно быть раньше ${date}`,
-  mustBeBetween: (startDate, endDate) =>
-    `Должно быть между ${startDate} - ${endDate}`,
-  dateIsDisabled: 'Недопустимая дата',
-  previous: 'Предыдущая',
-  next: 'Следующая',
-  typeInDate: 'Формат даты',
-  pickDateFromCalendar: 'Выбрать дату из календаря',
-  close: 'Закрыть',
-});
+registerTranslation('ru', ru);
 
 const Stack = createStackNavigator();
 
 export default function App() {
-  useEffect(() => {
-    createTable();
-  }, []);
-
   return (
     <NavigationContainer>
       <Stack.Navigator
