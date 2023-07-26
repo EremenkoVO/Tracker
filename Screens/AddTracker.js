@@ -3,8 +3,8 @@ import {useState} from 'react';
 import {StyleSheet, ToastAndroid, View} from 'react-native';
 import {FAB, Provider, TextInput} from 'react-native-paper';
 import {DatePickerInput} from 'react-native-paper-dates';
-import {theme, themeFab} from './common/theme';
-import {createTracker} from './storage';
+import {theme, themeFab} from '../common/theme';
+import {createTracker} from '../storage';
 
 const AddTracker = ({navigation}) => {
   const [text, setText] = useState('');
