@@ -1,6 +1,7 @@
 import morph from './morph';
 
 const calculateDaysPassed = dateString => {
+  if (!dateString) return NaN;
   const parts = dateString.split('/');
   const day = parseInt(parts[0], 10);
   const month = parseInt(parts[1], 10) - 1;

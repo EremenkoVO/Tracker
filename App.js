@@ -1,8 +1,6 @@
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import {useEffect} from 'react';
 import {registerTranslation} from 'react-native-paper-dates';
-import {createTable} from './storage';
 
 import 'react-native-gesture-handler';
 
@@ -16,10 +14,6 @@ registerTranslation('ru', ru);
 const Stack = createStackNavigator();
 
 export default function App() {
-  useEffect(() => {
-    createTable();
-  }, []);
-
   return (
     <NavigationContainer>
       <Stack.Navigator

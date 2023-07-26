@@ -4,27 +4,29 @@ import {StyleSheet, ToastAndroid, View} from 'react-native';
 import {FAB, Provider, TextInput} from 'react-native-paper';
 import {DatePickerInput} from 'react-native-paper-dates';
 import {theme, themeFab} from '../common/theme';
-import {createTracker} from '../storage';
+import {saveTracker} from '../data/helpers';
 
 const AddTracker = ({navigation}) => {
-  const [text, setText] = useState('');
-  const [inputDate, setInputDate] = useState(undefined);
+  const [name, setName] = useState('');
+  const [date, setDate] = useState('');
 
   const add = async () => {
-    if (text.length == 0) {
+    if (name.length == 0) {
       ToastAndroid.show(
         'Необходимо указать наименование трекера',
         ToastAndroid.SHORT,
       );
-    } else if (!dayjs(inputDate, 'YYYY-MM-DDTHH:mm:ssZ[Z]').isValid()) {
+      return;
+    } else if (!dayjs(date, 'YYYY-MM-DDTHH:mm:ssZ[Z]').isValid()) {
       ToastAndroid.show(
         'Неверный формат даты начала отчета',
         ToastAndroid.SHORT,
       );
-    } else {
-      await createTracker(text, dayjs(inputDate).format('DD/MM/YYYY'));
-      await navigation.navigate('Home');
+      return;
     }
+
+    await saveTracker(name, dayjs(date).format('DD/MM/YYYY'));
+    await navigation.navigate('Home');
   };
 
   return (
@@ -33,16 +35,16 @@ const AddTracker = ({navigation}) => {
         <View style={style.container}>
           <TextInput
             label="Наименование трекера"
-            value={text}
+            value={name}
             mode="outlined"
-            onChangeText={text => setText(text)}></TextInput>
+            onChangeText={text => setName(text)}></TextInput>
 
           <DatePickerInput
             locale="ru"
             label="Дата начала отчета"
-            value={inputDate}
+            value={date}
             mode="outlined"
-            onChange={startDate => setInputDate(startDate)}
+            onChange={startDate => setDate(startDate)}
             inputMode="start"
           />
         </View>

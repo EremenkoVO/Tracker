@@ -1,4 +1,5 @@
-import {useEffect, useState} from 'react';
+import withObservables from '@nozbe/with-observables';
+import {useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import {
@@ -12,46 +13,39 @@ import {
   Provider,
 } from 'react-native-paper';
 import {theme} from '../common/theme';
+import {deleteTracker, observeTrackers} from '../data/helpers';
 import calculateDaysPassed from '../helpers/trackerDate';
-import {deleteTracker, getTrackers} from '../storage';
 
-const Home = ({navigation}) => {
-  const [trackers, setTrackers] = useState([]);
+const Home = ({navigation, trackers}) => {
   const [visible, setVisible] = useState(false);
   const [selectedId, setSelectedId] = useState(false);
 
   const hideDialog = () => setVisible(false);
 
-  useEffect(() => {
-    fetchTrackers();
-  }, []);
-
-  const fetchTrackers = async () => {
-    await getTrackers(setTrackers);
-  };
+  console.log(trackers);
 
   return (
     <Provider theme={theme}>
-      <View style={style.view}>
-        <Portal>
-          <Dialog visible={visible} onDismiss={hideDialog}>
-            <Dialog.Content>
-              <Dialog.Title>Удалить трекер?</Dialog.Title>
-            </Dialog.Content>
-            <Dialog.Actions>
-              <Button onPress={() => hideDialog()}>Отменить</Button>
-              <Button
-                textColor={MD3Colors.error40}
-                onPress={() => {
-                  deleteTracker(selectedId, setTrackers);
-                  hideDialog();
-                }}>
-                Удалить
-              </Button>
-            </Dialog.Actions>
-          </Dialog>
-        </Portal>
+      <Portal>
+        <Dialog visible={visible} onDismiss={hideDialog}>
+          <Dialog.Content>
+            <Dialog.Title>Удалить трекер?</Dialog.Title>
+          </Dialog.Content>
+          <Dialog.Actions>
+            <Button onPress={() => hideDialog()}>Отменить</Button>
+            <Button
+              textColor={MD3Colors.error40}
+              onPress={() => {
+                deleteTracker(selectedId);
+                hideDialog();
+              }}>
+              Удалить
+            </Button>
+          </Dialog.Actions>
+        </Dialog>
+      </Portal>
 
+      <View style={style.view}>
         <View>
           <ScrollView>
             {trackers?.map(({id, name, date}) => {
@@ -87,7 +81,6 @@ const Home = ({navigation}) => {
           animated={true}
           variant="secondary"
           onPress={() => {
-            getTrackers(setTrackers);
             navigation.navigate('AddTracker');
           }}></FAB>
       </View>
@@ -107,4 +100,8 @@ const style = StyleSheet.create({
   },
 });
 
-export default Home;
+const enhanceWithTrackers = withObservables([], () => ({
+  trackers: observeTrackers(),
+}));
+
+export default enhanceWithTrackers(Home);
