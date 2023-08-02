@@ -1577,6 +1577,11 @@
     "@jridgewell/resolve-uri" "3.1.0"
     "@jridgewell/sourcemap-codec" "1.4.14"
 
+"@material/material-color-utilities@^0.2.7":
+  version "0.2.7"
+  resolved "https://registry.yarnpkg.com/@material/material-color-utilities/-/material-color-utilities-0.2.7.tgz#ff2a638d2db295a796fa02671410df4f4f97c33e"
+  integrity sha512-0FCeqG6WvK4/Cc06F/xXMd/pv4FeisI0c1tUpBbfhA2n9Y8eZEv4Karjbmf2ZqQCPUWMrGp8A571tCjizxoTiQ==
+
 "@nicolo-ribaudo/eslint-scope-5-internals@5.1.1-v1":
   version "5.1.1-v1"
   resolved "https://registry.yarnpkg.com/@nicolo-ribaudo/eslint-scope-5-internals/-/eslint-scope-5-internals-5.1.1-v1.tgz#dbf733a965ca47b1973177dc0bb6c889edcfb129"
@@ -1640,6 +1645,13 @@
   integrity sha512-X/qGRBrmXLBVP3pqGQKD461UNx4sKfNoKWe4dlM/Gvtd12BOmv+nYOxw8PXiUr28yXxVYi03LpwDBd+JFo1Adg==
   dependencies:
     hoist-non-react-statics "^3.3.2"
+
+"@pchmn/expo-material3-theme@pchmn/expo-material3-theme":
+  version "1.3.1"
+  resolved "https://codeload.github.com/pchmn/expo-material3-theme/tar.gz/53b4e9a0e139c8b9205594eada7ca310d8ff4fa8"
+  dependencies:
+    "@material/material-color-utilities" "^0.2.7"
+    color "^4.2.3"
 
 "@react-native-community/cli-clean@11.3.3":
   version "11.3.3"

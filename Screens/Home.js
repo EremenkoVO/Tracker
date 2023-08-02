@@ -1,5 +1,5 @@
 import withObservables from '@nozbe/with-observables';
-import {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import {
@@ -12,17 +12,16 @@ import {
   Portal,
   Provider,
 } from 'react-native-paper';
-import {theme} from '../common/theme';
+import {PreferencesContext} from '../common/PreferencesContext';
 import {deleteTracker, observeTrackers} from '../data/helpers';
 import calculateDaysPassed from '../helpers/trackerDate';
 
 const Home = ({navigation, trackers}) => {
+  const {theme} = useContext(PreferencesContext);
   const [visible, setVisible] = useState(false);
   const [selectedId, setSelectedId] = useState(false);
 
   const hideDialog = () => setVisible(false);
-
-  console.log(trackers);
 
   return (
     <Provider theme={theme}>
@@ -58,7 +57,8 @@ const Home = ({navigation, trackers}) => {
                     <List.Icon
                       {...props}
                       icon="leaf-circle"
-                      color={MD3Colors.primary20}></List.Icon>
+                      color={MD3Colors.primary20}
+                    />
                   )}
                   right={() => (
                     <IconButton
@@ -70,7 +70,8 @@ const Home = ({navigation, trackers}) => {
                         setSelectedId(id);
                       }}
                     />
-                  )}></List.Item>
+                  )}
+                />
               );
             })}
           </ScrollView>
@@ -82,7 +83,8 @@ const Home = ({navigation, trackers}) => {
           variant="secondary"
           onPress={() => {
             navigation.navigate('AddTracker');
-          }}></FAB>
+          }}
+        />
       </View>
     </Provider>
   );

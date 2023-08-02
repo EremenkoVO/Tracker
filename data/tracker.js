@@ -6,4 +6,5 @@ export default class Tracker extends Model {
 
   @field('name') name;
   @field('date') date;
+  @field('type') type;
 }
