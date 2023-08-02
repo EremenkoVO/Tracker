@@ -1,17 +1,18 @@
 import dayjs from 'dayjs';
-import {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {StyleSheet, ToastAndroid, View} from 'react-native';
 import {FAB, Provider, TextInput} from 'react-native-paper';
 import {DatePickerInput} from 'react-native-paper-dates';
-import {theme, themeFab} from '../common/theme';
+import {PreferencesContext} from '../common/PreferencesContext';
 import {saveTracker} from '../data/helpers';
 
 const AddTracker = ({navigation}) => {
+  const {theme} = useContext(PreferencesContext);
   const [name, setName] = useState('');
   const [date, setDate] = useState('');
 
   const add = async () => {
-    if (name.length == 0) {
+    if (name.length === 0) {
       ToastAndroid.show(
         'Необходимо указать наименование трекера',
         ToastAndroid.SHORT,
@@ -37,7 +38,8 @@ const AddTracker = ({navigation}) => {
             label="Наименование трекера"
             value={name}
             mode="outlined"
-            onChangeText={text => setName(text)}></TextInput>
+            onChangeText={text => setName(text)}
+          />
 
           <DatePickerInput
             locale="ru"
@@ -50,10 +52,10 @@ const AddTracker = ({navigation}) => {
         </View>
         <FAB
           icon="check"
-          theme={themeFab}
           style={style.fab}
           animated={true}
-          onPress={() => add()}></FAB>
+          onPress={() => add()}
+        />
       </View>
     </Provider>
   );
